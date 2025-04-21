@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.wit.placemark.R
 import org.wit.placemark.databinding.ActivityPlacemarkBinding
 import org.wit.placemark.helpers.showImagePicker
@@ -30,6 +31,9 @@ class PlacemarkActivity : AppCompatActivity() {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
                             placemark.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(placemark.image)
+                                .into(binding.imageView)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
@@ -53,6 +57,10 @@ class PlacemarkActivity : AppCompatActivity() {
             binding.placemarkTitle.setText(placemark.title)
             binding.description.setText(placemark.description)
             binding.btnAdd.setText(R.string.button_savePlacemark)
+            binding.chooseImage.setText(R.string.button_editImage)
+            Picasso.get()
+                .load(placemark.image)
+                .into(binding.imageView)
         }else{
             binding.btnAdd.setText(R.string.button_addPlacemark)
         }
@@ -80,6 +88,8 @@ class PlacemarkActivity : AppCompatActivity() {
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
+
+        registerImagePickerCallback()
 
     }
 
