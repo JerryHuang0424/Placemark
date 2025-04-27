@@ -22,7 +22,6 @@ class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>,
 
         return MainHolder(binding)
     }
-
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val placemark = placemarks[holder.adapterPosition]
         holder.bind(placemark, listener)
